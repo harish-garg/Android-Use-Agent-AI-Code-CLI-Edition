@@ -4,7 +4,7 @@
 
 Adapted from [android-action-kernel](https://github.com/actionstatelabs/android-action-kernel) by Ethan Lim. The original used OpenAI's GPT-4o API ($0.01 per action). This version uses your AI coding assistant's built-in intelligence at no additional cost.
 
-**Key insight**: If you already subscribe to Claude Code, Gemini Code Assist, Cursor, or similar - you can use it for Android automation with zero marginal API costs.
+If you already subscribe to Claude Code, Gemini Code Assist, Cursor, or similar - you can use it for Android automation with zero marginal API costs.
 
 [![Android Agent Demo](https://img.youtube.com/vi/MvVX1ZgyM8Y/maxresdefault.jpg)](https://www.youtube.com/watch?v=MvVX1ZgyM8Y)
 *(Click the image above to watch the demo video)*
@@ -43,6 +43,8 @@ adb devices
 # 3. Unlock device screen
 
 # 4. Open your AI assistant in this folder and give it a goal
+claude/gemini/codex
+
 ```
 
 ### Example Usage
