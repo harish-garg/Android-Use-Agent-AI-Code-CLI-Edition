@@ -6,6 +6,9 @@ Adapted from [android-action-kernel](https://github.com/actionstatelabs/android-
 
 **Key insight**: If you already subscribe to Claude Code, Gemini Code Assist, Cursor, or similar - you can use it for Android automation with zero marginal API costs.
 
+[![Android Agent Demo](https://img.youtube.com/vi/MvVX1ZgyM8Y/maxresdefault.jpg)](https://www.youtube.com/watch?v=MvVX1ZgyM8Y)
+*(Click the image above to watch the demo video)*
+
 ## How It Works
 
 Your AI assistant reads instruction files (`AGENT.md` or `CLAUDE.md`) and autonomously executes a perception-reasoning-action loop until your goal is achieved:
