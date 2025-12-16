@@ -1,0 +1,173 @@
+Example Session: Logistics Workflow
+====================================
+
+Goal: "Get the latest image from WhatsApp, then open RTS Pro app and submit it as an invoice"
+
+Max Steps: 30 (complex multi-app workflow)
+Expected Duration: 40-60 seconds (20-25 steps)
+
+This is the viral demo workflow from the original README.
+
+Execution Trace:
+-----------------
+
+PART 1: GET IMAGE FROM WHATSAPP
+---------------------------------
+
+STEP 1: Open WhatsApp
+  Perception: Home screen with app icons
+  Reasoning: Need to access WhatsApp to get latest image
+  Action: Tap WhatsApp icon
+
+STEP 2: Find Latest Message with Image
+  Perception: WhatsApp chat list
+  Reasoning: Latest message is from "Driver Bob" with 📎 attachment icon
+  Action: Tap on "Driver Bob" chat
+
+STEP 3: View Attached Image
+  Perception: Chat with Driver Bob, see message "BOL for load #1234" with image thumbnail
+  Reasoning: This is the Bill of Lading image we need
+  Action: Tap image thumbnail to open full view
+
+STEP 4: Download Image
+  Perception: Image viewer showing BOL document, see download icon
+  Reasoning: Need to save image to device storage
+  Action: Tap download/save icon
+
+STEP 5: Confirm Download
+  Perception: Toast notification "Image saved to gallery"
+  Reasoning: Image successfully downloaded, can proceed to invoice app
+  Action: Press back to exit image viewer
+
+STEP 6: Navigate to Home
+  Perception: Still in WhatsApp chat
+  Reasoning: Need to switch to RTS Pro app, go to home first
+  Action: Press home button
+
+---
+
+PART 2: OPEN RTS PRO AND CREATE INVOICE
+----------------------------------------
+
+STEP 7: Find RTS Pro App
+  Perception: Home screen, may need to swipe to find app
+  Reasoning: RTS Pro is the factoring/invoice app
+  Action: Tap RTS Pro icon (or swipe to find it)
+
+STEP 8: Access New Invoice Form
+  Perception: RTS Pro dashboard showing recent invoices
+  Reasoning: Need to create new invoice
+  Action: Tap "New Invoice" button
+
+STEP 9: Fill Load Number
+  Perception: Invoice form with fields: Load #, Origin, Destination, Amount, Documents
+  Reasoning: Need to enter load number from BOL (saw "#1234" in WhatsApp)
+  Action: Tap "Load #" field
+
+STEP 10: Enter Load Number
+  Perception: Keyboard visible, "Load #" field focused
+  Reasoning: Enter the load number
+  Action: Type "1234"
+
+STEP 11: Navigate to Document Upload
+  Perception: Form partially filled, see "Documents" section
+  Reasoning: Need to scroll down or tap to access document upload
+  Action: Tap "Upload Documents" button
+
+STEP 12: Select Image Source
+  Perception: Upload menu showing options: "Camera", "Gallery", "Files"
+  Reasoning: Downloaded image is in Gallery
+  Action: Tap "Gallery"
+
+STEP 13: Find Downloaded BOL Image
+  Perception: Gallery view showing recent images
+  Reasoning: BOL image should be the most recent (just downloaded)
+  Action: Tap first/most recent image thumbnail
+
+STEP 14: Confirm Image Selection
+  Perception: Image preview in upload dialog, "Use this image?" prompt
+  Reasoning: Correct BOL image, confirm selection
+  Action: Tap "Confirm" or "Select" button
+
+STEP 15: Verify Image Attached
+  Perception: Invoice form now shows BOL image thumbnail in Documents section
+  Reasoning: Image successfully attached to invoice
+  Action: Scroll to view other required fields
+
+STEP 16: Fill Origin (if required)
+  Perception: "Origin" field visible
+  Reasoning: BOL might have origin info, or use default
+  Action: Tap "Origin" field and type location (or skip if optional)
+
+STEP 17: Fill Destination (if required)
+  Perception: "Destination" field visible
+  Reasoning: Complete required fields
+  Action: Tap "Destination" field and type location (or skip if optional)
+
+STEP 18: Enter Invoice Amount
+  Perception: "Amount" field visible
+  Reasoning: Enter payment amount (could OCR from BOL, or manual entry)
+  Action: Tap "Amount", type "$2500.00"
+
+STEP 19: Review Invoice
+  Perception: Form filled with: Load #1234, BOL image attached, Amount $2500
+  Reasoning: All required fields completed, ready to submit
+  Action: Scroll to bottom to find submit button
+
+STEP 20: Submit Invoice
+  Perception: "Submit Invoice" button visible at bottom
+  Reasoning: Everything looks correct, submit for payment
+  Action: Tap "Submit Invoice" button
+
+STEP 21: Wait for Processing
+  Perception: Loading spinner "Submitting invoice..."
+  Reasoning: Server processing the submission
+  Action: Wait for confirmation
+
+STEP 22: Confirm Submission
+  Perception: Success message "Invoice #INV-1234 submitted successfully! Payment processing time: 24 hours"
+  Reasoning: Invoice submitted, workflow complete!
+  Action: Done
+
+---
+
+RESULT: ✅ Success
+Total Steps: 22
+Total Time: ~45 seconds
+Invoice Status: Submitted (INV-1234)
+
+Report to User:
+"✅ Logistics workflow completed successfully!
+   - Downloaded BOL image from Driver Bob on WhatsApp
+   - Created invoice #INV-1234 in RTS Pro
+   - Attached BOL document
+   - Submitted for payment (24hr processing)
+
+   Driver will receive payment within 24 hours instead of waiting weeks for manual processing."
+
+---
+
+IMPACT METRICS (From README):
+------------------------------
+Before (Manual):
+  - 10+ minutes per invoice
+  - Requires back-office staff
+  - Driver waits weeks for payment
+  - Prone to data entry errors
+
+After (Automated):
+  - 30-45 seconds per invoice
+  - Zero human intervention
+  - Driver gets paid same day
+  - 100% accurate (no manual entry)
+
+Cost Savings:
+  - 95% faster processing
+  - $0 per execution (vs $0.15 with Computer Use)
+  - Eliminates back-office labor for this task
+
+Real-World Usage:
+  - Trucking companies with 50+ drivers
+  - 10-20 invoices per driver per week
+  - 500-1000 invoices/week automated
+  - Savings: ~$50K-100K/year in labor costs

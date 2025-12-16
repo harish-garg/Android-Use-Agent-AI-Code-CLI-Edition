@@ -1,0 +1,117 @@
+Example Session: Turn On WiFi
+==============================
+
+Goal: "Turn on WiFi"
+
+Max Steps: 10
+Expected Duration: 8-10 seconds (4-5 steps)
+
+Execution Trace:
+-----------------
+
+STEP 1: Open Settings App
+  Perception:
+    $ python utils/get_screen.py
+    Output: [
+      {"text": "Phone", "center": [100, 400], "clickable": true},
+      {"text": "Messages", "center": [300, 400], "clickable": true},
+      {"text": "Settings", "center": [500, 400], "clickable": true},
+      {"text": "Chrome", "center": [100, 600], "clickable": true},
+      {"text": "Camera", "center": [300, 600], "clickable": true}
+    ]
+
+  Reasoning:
+    - On home screen
+    - Goal requires WiFi toggle, which is in Settings
+    - Found Settings app icon at [500, 400]
+    - Tap to open Settings
+
+  Action:
+    $ echo '{"action":"tap","coordinates":[500,400],"reason":"Open Settings app"}' | python utils/execute_action.py
+    Result: {"status": "success", "message": "Tapped at (500, 400)"}
+    $ sleep 2
+
+---
+
+STEP 2: Navigate to WiFi Settings
+  Perception:
+    $ python utils/get_screen.py
+    Output: [
+      {"text": "Settings", "center": [270, 100], "clickable": false},
+      {"text": "Network & internet", "center": [540, 300], "clickable": true},
+      {"text": "Connected devices", "center": [540, 450], "clickable": true},
+      {"text": "Apps", "center": [540, 600], "clickable": true},
+      {"text": "Battery", "center": [540, 750], "clickable": true},
+      {"text": "Display", "center": [540, 900], "clickable": true}
+    ]
+
+  Reasoning:
+    - Settings app is open
+    - WiFi is typically under "Network & internet"
+    - Found "Network & internet" at [540, 300]
+    - Tap to access network settings
+
+  Action:
+    $ echo '{"action":"tap","coordinates":[540,300],"reason":"Open Network & internet"}' | python utils/execute_action.py
+    Result: {"status": "success", "message": "Tapped at (540, 300)"}
+    $ sleep 2
+
+---
+
+STEP 3: Access WiFi Toggle
+  Perception:
+    $ python utils/get_screen.py
+    Output: [
+      {"text": "Network & internet", "center": [270, 100], "clickable": false},
+      {"text": "WiFi", "center": [200, 300], "clickable": true},
+      {"text": "OFF", "center": [900, 300], "clickable": true},  # WiFi toggle (OFF)
+      {"text": "Mobile network", "center": [200, 450], "clickable": true},
+      {"text": "ON", "center": [900, 450], "clickable": true},
+      {"text": "Data Saver", "center": [200, 600], "clickable": true}
+    ]
+
+  Reasoning:
+    - In Network & internet settings
+    - Found WiFi row at [200, 300]
+    - WiFi toggle shows "OFF" at [900, 300]
+    - Can either tap "WiFi" label or "OFF" toggle
+    - Tapping toggle at [900, 300] will turn WiFi ON
+
+  Action:
+    $ echo '{"action":"tap","coordinates":[900,300],"reason":"Toggle WiFi ON"}' | python utils/execute_action.py
+    Result: {"status": "success", "message": "Tapped at (900, 300)"}
+    $ sleep 2
+
+---
+
+STEP 4: Verify WiFi Enabled
+  Perception:
+    $ python utils/get_screen.py
+    Output: [
+      {"text": "Network & internet", "center": [270, 100], "clickable": false},
+      {"text": "WiFi", "center": [200, 300], "clickable": true},
+      {"text": "ON", "center": [900, 300], "clickable": true},  # WiFi now ON!
+      {"text": "MyHomeNetwork", "center": [200, 400], "clickable": true},  # Connected network
+      {"text": "Mobile network", "center": [200, 550], "clickable": true},
+      {"text": "ON", "center": [900, 550], "clickable": true}
+    ]
+
+  Reasoning:
+    - WiFi toggle now shows "ON" at [900, 300]
+    - Connected network "MyHomeNetwork" is visible
+    - WiFi has been successfully enabled
+    - Goal achieved!
+
+  Action:
+    $ echo '{"action":"done","reason":"WiFi successfully turned ON"}' | python utils/execute_action.py
+    Result: {"status": "success", "message": "Goal achieved - task complete"}
+
+---
+
+RESULT: ✅ Success
+Total Steps: 4
+Total Time: ~8 seconds
+WiFi Status: ON (Connected to MyHomeNetwork)
+
+Report to User:
+"✅ WiFi has been turned on successfully. Connected to: MyHomeNetwork"

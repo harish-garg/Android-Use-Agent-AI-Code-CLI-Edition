@@ -1,0 +1,155 @@
+Example Session: Send WhatsApp Message
+==========================================
+
+Goal: "Send WhatsApp message to John saying hello"
+
+Max Steps: 15
+Expected Duration: 10-15 seconds (6-8 steps)
+
+Execution Trace:
+-----------------
+
+STEP 1: Find WhatsApp App
+  Perception:
+    $ python utils/get_screen.py
+    Output: [
+      {"text": "Phone", "center": [100, 400], "clickable": true},
+      {"text": "Messages", "center": [300, 400], "clickable": true},
+      {"text": "WhatsApp", "center": [500, 400], "clickable": true},
+      {"text": "Chrome", "center": [100, 600], "clickable": true}
+    ]
+
+  Reasoning:
+    - On home screen
+    - Goal requires WhatsApp app
+    - Found WhatsApp icon at center [500, 400]
+    - Need to tap to open app
+
+  Action:
+    $ echo '{"action":"tap","coordinates":[500,400],"reason":"Open WhatsApp"}' | python utils/execute_action.py
+    Result: {"status": "success", "message": "Tapped at (500, 400)"}
+    $ sleep 2
+
+---
+
+STEP 2: Find Contact "John"
+  Perception:
+    $ python utils/get_screen.py
+    Output: [
+      {"text": "Search", "center": [540, 200], "clickable": true},
+      {"text": "John Doe", "center": [540, 400], "clickable": true},
+      {"text": "Sarah Smith", "center": [540, 600], "clickable": true},
+      {"text": "Work Group", "center": [540, 800], "clickable": true}
+    ]
+
+  Reasoning:
+    - WhatsApp is open, showing chat list
+    - Goal needs to message "John"
+    - Found "John Doe" contact at [540, 400]
+    - Tap to open chat
+
+  Action:
+    $ echo '{"action":"tap","coordinates":[540,400],"reason":"Open chat with John"}' | python utils/execute_action.py
+    Result: {"status": "success", "message": "Tapped at (540, 400)"}
+    $ sleep 2
+
+---
+
+STEP 3: Focus Message Input Field
+  Perception:
+    $ python utils/get_screen.py
+    Output: [
+      {"text": "John Doe", "center": [270, 100], "clickable": false},
+      {"text": "Hey, how are you?", "center": [400, 600], "clickable": false},
+      {"text": "Type a message", "center": [540, 1800], "clickable": true},
+      {"text": "📎", "center": [900, 1800], "clickable": true},
+      {"text": "🎤", "center": [1000, 1800], "clickable": true}
+    ]
+
+  Reasoning:
+    - In chat with John
+    - See previous messages in chat history
+    - Message input field at bottom: "Type a message" [540, 1800]
+    - Need to tap input field to focus it before typing
+
+  Action:
+    $ echo '{"action":"tap","coordinates":[540,1800],"reason":"Focus message input"}' | python utils/execute_action.py
+    Result: {"status": "success", "message": "Tapped at (540, 1800)"}
+    $ sleep 2
+
+---
+
+STEP 4: Type Message
+  Perception:
+    $ python utils/get_screen.py
+    Output: [
+      {"text": "John Doe", "center": [270, 100], "clickable": false},
+      {"text": "", "center": [540, 1600], "clickable": true},  # Input field now focused
+      {"text": "Send", "center": [1000, 1600], "clickable": false},  # Disabled (no text)
+      # ... keyboard elements ...
+    ]
+
+  Reasoning:
+    - Input field is now focused (keyboard visible)
+    - Send button is disabled (no text entered yet)
+    - Ready to type the message "hello"
+
+  Action:
+    $ echo '{"action":"type","text":"hello","reason":"Enter message text"}' | python utils/execute_action.py
+    Result: {"status": "success", "message": "Typed: hello"}
+    $ sleep 2
+
+---
+
+STEP 5: Send Message
+  Perception:
+    $ python utils/get_screen.py
+    Output: [
+      {"text": "John Doe", "center": [270, 100], "clickable": false},
+      {"text": "hello", "center": [540, 1600], "clickable": true},  # Message in input
+      {"text": "Send", "center": [1000, 1600], "clickable": true},  # Now enabled!
+      # ... keyboard elements ...
+    ]
+
+  Reasoning:
+    - Message "hello" is in input field
+    - Send button is now clickable at [1000, 1600]
+    - Tap to send the message
+
+  Action:
+    $ echo '{"action":"tap","coordinates":[1000,1600],"reason":"Send message"}' | python utils/execute_action.py
+    Result: {"status": "success", "message": "Tapped at (1000, 1600)"}
+    $ sleep 2
+
+---
+
+STEP 6: Verify Message Sent
+  Perception:
+    $ python utils/get_screen.py
+    Output: [
+      {"text": "John Doe", "center": [270, 100], "clickable": false},
+      {"text": "Hey, how are you?", "center": [400, 600], "clickable": false},
+      {"text": "hello", "center": [800, 800], "clickable": false},  # Our sent message!
+      {"text": "Type a message", "center": [540, 1800], "clickable": true},
+      {"text": "✓✓", "center": [950, 810], "clickable": false}  # Delivered checkmarks
+    ]
+
+  Reasoning:
+    - Message "hello" now appears in chat history at [800, 800]
+    - Checkmarks (✓✓) indicate message was delivered
+    - Input field is cleared, ready for next message
+    - Goal achieved: Message sent to John successfully!
+
+  Action:
+    $ echo '{"action":"done","reason":"WhatsApp message sent to John successfully"}' | python utils/execute_action.py
+    Result: {"status": "success", "message": "Goal achieved - task complete"}
+
+---
+
+RESULT: ✅ Success
+Total Steps: 6
+Total Time: ~12 seconds
+Message Status: Delivered to John
+
+Report to User:
+"✅ WhatsApp message sent to John: 'hello'"
